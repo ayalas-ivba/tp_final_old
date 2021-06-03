@@ -1,0 +1,63 @@
+<?php
+
+namespace App\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+
+
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
+use App\Entity\Usuario;
+use App\Form\UsuarioFormType;
+
+class AdminController extends AbstractController
+{
+/** @var EntityManagerInterface */
+private $entityManager;
+
+/** @var \Doctrine\Common\Persistence\ObjectRepository */
+private $UsuarioRepository;
+
+
+/**
+ * @param EntityManagerInterface $entityManager
+ */
+public function __construct(EntityManagerInterface $entityManager)
+{
+    $this->entityManager = $entityManager;
+    $this->UsuarioRepository = $entityManager->getRepository('Usuario');
+}
+
+/**
+ * @Route("/admin/usuario/create", name="usuario_create")
+ */
+public function createUsuarioAction(Request $request)
+{
+    
+    $usuario = new Usuario();
+/*    $usuario->setNombre($this->getNombre()->getNombre()); */
+
+    $form = $this->createForm(UsuarioFormType::class, $usuario);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $this->entityManager->persist($usuario);
+        $this->entityManager->flush($usuario);
+/*
+        $request->getSession()->set('user_is_author', true);
+*/        
+        $this->addFlash('Exito', 'Felicitaciones! hay un nuevo usuario.');
+
+        return $this->redirectToRoute('home');
+    }
+
+/*    return $this->render('admin/create_usuario.html.twig', [
+        'form' => $form->createView() */
+
+    return $this->render('admin/new.html.twig', [
+        'form' => $form->createView()    
+    ]);
+}
+}

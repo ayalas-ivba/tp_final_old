@@ -1,0 +1,38 @@
+# Read the documentation: https://symfony.com/doc/master/bundles/FOSRestBundle/index.html
+# COMENTO ESTA LINEA Y AGREGO LAS DE ABAJO --> 
+fos_rest: null
+#    param_fetcher_listener:  true
+#    allowed_methods_listener:  true
+#    routing_loader: true
+#    view:
+#        view_response_listener:  true
+#    exception:
+#        codes:
+#            App\Exception\MyException: 403
+#        messages:
+#            App\Exception\MyException: Forbidden area.
+#    format_listener:
+#        rules:
+#            - { path: ^/api, prefer_extension: true, fallback_format: json, priorities: [ json, html ] }
+# copio esta configuracion de https://www.thinktocode.com/2018/03/26/symfony-4-rest-api-part-1-fosrestbundle/
+
+#PAGINA 
+#fos_rest:
+#    view:
+#        view_response_listener:  true
+#    format_listener:
+#        rules:
+#            - { path: ^/api, prefer_extension: true, fallback_format: json, priorities: [ json ] }
+
+#COPIA DE MATIAS
+#fos_rest: 
+#    param_fetcher_listener:  true
+#    body_listener: true
+#    view:
+#        view_response_listener:  "force"
+#        format:
+#          jason: true
+#          html : true
+#          format_listener:
+#        rules:
+#            - { path: ^/api, prefer_extension: false, fallback_format: json, priorities: [json] }
